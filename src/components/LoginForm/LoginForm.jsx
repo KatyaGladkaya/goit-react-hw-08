@@ -6,8 +6,8 @@ import { login } from "../../redux/auth/operations";
 const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, actions) => {
-    dispatch(login(values));
+  const handleSubmit = async (values, actions) => {
+   await dispatch(login(values));
     actions.resetForm();
   };
 

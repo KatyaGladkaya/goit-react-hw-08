@@ -1,22 +1,26 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://connections-api.goit.global";
 
-const setAuthHeader = (token) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+export const goitAPI = axios.create({
+  baseURL: 'https://connections-api.goit.global',
+});
+
+const setAuthHeader = token => {
+  goitAPI.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = "";
+  goitAPI.defaults.headers.common.Authorization = "";
 };
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (credentials, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const res = await axios.post("/users/signup", credentials);
+      const res = await goitAPI.post('/users/signup', body);
       setAuthHeader(res.data.token);
+      return res.data
     } catch (err) {
       console.log(err.response);
       return thunkAPI.rejectWithValue(err.message);
@@ -26,9 +30,9 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (credentials, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const res = await axios.post("/users/login", credentials);
+      const res = await goitAPI.post('/users/login', body);
       setAuthHeader(res.data.token);
       return res.data;
     } catch (err) {
@@ -39,7 +43,7 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await axios.post("/users/logout");
+    await goitAPI.post('/users/logout');
     clearAuthHeader();
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message);
@@ -56,10 +60,12 @@ export const refreshUser = createAsyncThunk(
     }
     try {
       setAuthHeader(token);
-      const res = await axios.get("/users/current");
+      const res = await goitAPI.get('/users/current');
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
   }
 );
+
+export default goitAPI;
