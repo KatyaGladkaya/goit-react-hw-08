@@ -10,21 +10,21 @@ const UserMenu = () => {
   const user = useSelector(selectUser);
   const contacts = useSelector(selectContacts);
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return (
     <div>
       <p>Welcome, {user.name}</p>
       <button onClick={() => dispatch(logout())}>Logout</button>
-      <ul>
+      {/* <ul>
         {contacts.map(contact => (
           <li key={contact.id}>
             {contact.name}: {contact.number}
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };

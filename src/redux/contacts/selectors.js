@@ -1,7 +1,8 @@
 export const selectContacts = (state) => state.contacts.items;
 export const selectFilteredContacts = (state) => {
   const contacts = state.contacts.items;
-  const filter = state.filters.filter.toLowerCase();
+  // const filter = state.filters.filter.toLowerCase();
+    const filter = (state.filters?.filter || "").toLowerCase();
 
   return contacts.filter(
     (contact) =>
