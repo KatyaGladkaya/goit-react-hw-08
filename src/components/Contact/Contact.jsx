@@ -7,7 +7,7 @@ function Contact({ contact }) {
   return (
     <li className={s.item}>
       {contact.name}: {contact.number}
-      <button onClick={() => dispatch(deleteContact(contact.id))}>Delete</button>
+      <button onClick={() => dispatch(deleteContact(contact.id))} className={s.button}>Delete</button>
     </li>
   );
 }

@@ -27,9 +27,9 @@ function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <input name="name" type="text" placeholder="Name" required />
-      <input name="number" type="tel" placeholder="Phone Number" required />
-      <button type="submit">Add Contact</button>
+      <input name="name" type="text" placeholder="Name" required className={s.input}/>
+      <input name="number" type="tel" placeholder="Phone Number" required className={s.input}/>
+      <button type="submit" className={s.button}>Add Contact</button>
     </form>
   );
 }

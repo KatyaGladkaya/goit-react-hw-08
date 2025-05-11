@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
-import css from "./LoginForm.module.css";
+import s from "../LoginForm/LoginForm.module.css";
 import { login } from "../../redux/auth/operations";
 import { useNavigate } from "react-router-dom";
 
@@ -18,16 +18,16 @@ const LoginForm = () => {
 
   return (
     <Formik initialValues={{ email: "", password: "" }} onSubmit={handleSubmit}>
-      <Form className={css.form}>
-        <label>
+      <Form className={s.form}>
+        <label className={s.label}>
           Email
-          <Field type="email" name="email" required />
+          <Field type="email" name="email" required className={s.input}/>
         </label>
-        <label>
+        <label className={s.label}>
           Password
-          <Field type="password" name="password" required />
+          <Field type="password" name="password" required className={s.input}/>
         </label>
-        <button type="submit">Login</button>
+        <button type="submit" className={s.button}>Login</button>
       </Form>
     </Formik>
   );

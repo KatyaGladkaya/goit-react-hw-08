@@ -4,27 +4,17 @@ import { selectUser } from '../../redux/auth/selectors';
 import { selectContacts } from '../../redux/contacts/selectors';
 import { fetchContacts } from '../../redux/contacts/operations';
 import { logout } from '../../redux/auth/operations';
+import s from "../UserMenu/UserMenu.module.css"
 
 const UserMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const contacts = useSelector(selectContacts);
 
-  // useEffect(() => {
-  //   dispatch(fetchContacts());
-  // }, [dispatch]);
-
   return (
-    <div>
-      <p>Welcome, {user.name}</p>
-      <button onClick={() => dispatch(logout())}>Logout</button>
-      {/* <ul>
-        {contacts.map(contact => (
-          <li key={contact.id}>
-            {contact.name}: {contact.number}
-          </li>
-        ))}
-      </ul> */}
+    <div className={s.container}>
+      <p className={s.welcome}>Welcome, {user.name} </p>
+      <button onClick={() => dispatch(logout())} className={s.button}>Logout</button>
     </div>
   );
 };
