@@ -9,10 +9,18 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values, actions) => {
-   await dispatch(login(values));
-    actions.resetForm();
-    if (result.type === 'auth/login/fulfilled') {
-      navigate("/contacts");
+    try {
+      const result = await dispatch(login(values));
+      if (result.type === "auth/login/fulfilled") {
+        navigate("/contacts");
+      } else {
+        console.error("Login failed:", result.payload);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    } finally {
+      actions.resetForm();
+      actions.setSubmitting(false);
     }
   };
 
@@ -21,13 +29,15 @@ const LoginForm = () => {
       <Form className={s.form}>
         <label className={s.label}>
           Email
-          <Field type="email" name="email" required className={s.input}/>
+          <Field type="email" name="email" required className={s.input} />
         </label>
         <label className={s.label}>
           Password
-          <Field type="password" name="password" required className={s.input}/>
+          <Field type="password" name="password" required className={s.input} />
         </label>
-        <button type="submit" className={s.button}>Login</button>
+        <button type="submit" className={s.button}>
+          Login
+        </button>
       </Form>
     </Formik>
   );
